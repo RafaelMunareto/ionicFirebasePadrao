@@ -1,0 +1,7 @@
+{
+  "name": "VetSystem",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
