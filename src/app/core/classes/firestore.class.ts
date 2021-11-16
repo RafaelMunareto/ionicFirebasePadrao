@@ -11,7 +11,7 @@ export abstract class Firestore<T extends { id: string }> {
   constructor(protected db: AngularFirestore) {}
 
   getAll(): Observable<T[]> {
-    return this.collection.valueChanges();
+    return this.collection.valueChanges({ idField: 'eventId' });
   }
 
   get(id: string): Observable<T> {

@@ -1,0 +1,40 @@
+<ion-content>
+  <app-header
+    title="Esqueceu a senha"
+    cor="white"
+    funcao="back"
+    rota="auth/login"
+  >
+  </app-header>
+
+  <div class="login_wrapper">
+    <div class="login_title">
+      <img src="../../../assets/wizard_four.png" />
+    </div>
+    <form
+      #form
+      [formGroup]="resourceForm"
+      (submit)="onSubmit()"
+      class="login_form"
+    >
+      <div class="login_row">
+        <input
+          class="mail"
+          formControlName="email"
+          type="mail"
+          placeholder="Email"
+        />
+        <app-validators-form
+          [form-control]="$any(resourceForm.get('email'))"
+        ></app-validators-form>
+      </div>
+      <div class="login_row">
+        <app-button
+          title="Enviar senha"
+          [valido]="!resourceForm.invalid"
+        ></app-button>
+      </div>
+    </form>
+    <br />
+  </div>
+</ion-content>

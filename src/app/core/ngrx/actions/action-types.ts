@@ -1,26 +1,23 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable arrow-body-style */
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Action } from '@ngrx/store';
 
 export enum ActionTypes {
-  AddResponsavel = 'addResponsavel',
-  RemoveResponsavel = 'remResponsavel',
-  ClearResponsavel = 'clearResponsavel'
+  Add = 'add',
+  Clear = 'clear',
+  Remove = 'remove',
 }
 
-//responsavel
-
-export const AddResponsavel = (responsavel: any) => {
-  return <Action>{ type: ActionTypes.AddResponsavel, payload: responsavel };
+export const Add = (dado: any) => {
+  return <Action>{ type: ActionTypes.Add, payload: dado };
 };
 
-export const RemoveResponsavel = (responsavel: any) => {
-  return <Action>{ type: ActionTypes.RemoveResponsavel, payload: responsavel };
+export const Remove = (dado: any) => {
+  return <Action>{ type: ActionTypes.Remove, payload: dado };
 };
 
-export const ClearResponsavel = () => {
-  return <Action>{ type: ActionTypes.ClearResponsavel, payload: null };
+export const Clear = () => {
+  return <Action>{ type: ActionTypes.Clear, payload: null };
 };
-

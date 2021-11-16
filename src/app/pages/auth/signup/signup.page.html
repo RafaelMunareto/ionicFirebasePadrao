@@ -1,0 +1,81 @@
+<ion-content>
+  <app-header rota="auth/login" cor="white" funcao="back"></app-header>
+  <div class="login_wrapper">
+    <div class="login_title">
+      <img src="../../../assets/title_logo_white.png" />
+    </div>
+
+    <form [formGroup]="resourceForm" (submit)="onSubmit()" class="login_form">
+      <div class="login_row">
+        <h4>Registre-se</h4>
+      </div>
+
+      <div class="login_row">
+        <input
+          formControlName="name"
+          class="user"
+          type="text"
+          placeholder="Nome"
+        />
+        <app-validators-form
+          [form-control]="$any(resourceForm.get('name'))"
+        ></app-validators-form>
+      </div>
+
+      <div class="login_row">
+        <input
+          formControlName="email"
+          class="mail"
+          type="email"
+          placeholder="Email"
+        />
+        <app-validators-form
+          [form-control]="$any(resourceForm.get('email'))"
+        ></app-validators-form>
+      </div>
+
+      <div class="login_row">
+        <input
+          formControlName="password"
+          class="pass"
+          type="password"
+          placeholder="Senha"
+        />
+        <app-validators-form
+          [form-control]="$any(resourceForm.get('password'))"
+        ></app-validators-form>
+      </div>
+
+      <div class="login_row">
+        <input
+          formControlName="confirmPassword"
+          class="pass"
+          type="password"
+          placeholder="Confirmar senha"
+        />
+        <app-validators-form
+          [form-control]="$any(resourceForm.get('confirmPassword'))"
+        ></app-validators-form>
+      </div>
+
+      <div class="login_row">
+        <app-button
+          title="Cadastrar"
+          [valido]="!resourceForm.invalid"
+        ></app-button>
+      </div>
+    </form>
+    <!-- <p>Ou registre com </p>
+        <div class="social_bay">
+            <ul>
+                <li class="fb_icon">
+
+                </li>
+                <li class="google_icon">
+
+                </li>
+            </ul>
+        </div> -->
+    <p>Já possui conta? <strong (click)="goToPage('login')">Login</strong></p>
+  </div>
+</ion-content>

@@ -1,16 +1,19 @@
-import { SharedModule } from '../../../shared/shared.module';
+import { ComponentsModule } from './../../../shared/components/components.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { NgModule } from '@angular/core';
-import { TouchID } from '@ionic-native/touch-id';
 
 import { LoginPageRoutingModule } from './login-routing.module';
+
 import { LoginPage } from './login.page';
-import { ComponentsModule } from 'src/app/shared/components/components.module';
-import { BiometricWrapper } from '@ionic-native/biometric-wrapper/ngx';
-import { CurrentPlatformService } from 'src/app/shared/services/current-plataform.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [SharedModule, LoginPageRoutingModule, ComponentsModule],
+  imports: [
+    SharedModule,
+    ReactiveFormsModule,
+    ComponentsModule,
+    LoginPageRoutingModule,
+  ],
   declarations: [LoginPage],
-  providers:[BiometricWrapper, CurrentPlatformService]
 })
 export class LoginPageModule {}

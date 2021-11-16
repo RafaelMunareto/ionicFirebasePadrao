@@ -1,0 +1,23 @@
+@import "/src/global.scss";
+
+$cor_inibido: #988fa7;
+
+.corNormal {
+  background-color: #593799 !important;
+}
+
+.corInibido {
+  background-color: #988fa7 !important;
+}
+
+.login_btn {
+  background-color: $cor_inibido;
+  height: 45px;
+  color: $white_color;
+  border-radius: 24px;
+  width: 100%;
+  font-size: 18px;
+  &:focus {
+    outline: none;
+  }
+}

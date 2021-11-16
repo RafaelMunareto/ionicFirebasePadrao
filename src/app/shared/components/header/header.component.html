@@ -1,0 +1,35 @@
+<div [ngClass]="ocupaEspaco">
+  <ion-row>
+    <ion-col size="2" *ngIf="funcao === 'back'">
+      <ion-icon
+        class="nav_btn"
+        name="arrow-back-outline"
+        size="small"
+        [ngClass]="cor"
+        (click)="back()"
+      ></ion-icon>
+    </ion-col>
+    <ion-col size="10" *ngIf="title">
+      <ion-title
+        [ngClass]="cor"
+        [ngClass]="funcao === 'logout' ? 'padding-left-5' : 'padding-right-2'"
+        class="nav_header_title text-center capitalizeOff w100"
+        >{{ title }}</ion-title
+      >
+    </ion-col>
+    <ion-col
+      [ngClass]="!title ? 'd-flex justify-content-end' : ''"
+      [size]="title ? 2 : 12"
+      *ngIf="funcao === 'logout'"
+    >
+      <ion-icon
+        class="nav_btn"
+        name="log-out-outline"
+        size="small"
+        [ngClass]="cor"
+        (click)="logout()"
+      ></ion-icon>
+    </ion-col>
+  </ion-row>
+  <div class="clear"></div>
+</div>

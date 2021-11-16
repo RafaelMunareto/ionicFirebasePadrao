@@ -1,0 +1,8 @@
+<button
+  type="submit"
+  [ngClass]="valido ? 'corNormal' : 'corInibido'"
+  [disabled]="!valido"
+  class="login_btn"
+>
+  {{ title }}
+</button>

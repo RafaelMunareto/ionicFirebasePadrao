@@ -1,0 +1,59 @@
+@import "/src/global.scss";
+
+.nav_header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  .nav_btn {
+    font-size: 40px !important;
+    padding: 5px !important;
+  }
+  .nav_header_title {
+    color: $white_color !important;
+  }
+}
+
+.buttonHeader {
+  background: transparent !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end !important;
+}
+
+.icon_white {
+  width: 35px !important;
+  color: white !important;
+}
+
+.icon_dark {
+  width: 35px !important;
+  color: #593799 !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.capitalizeOff {
+  text-transform: none !important;
+}
+
+.padding-right-2 {
+  padding-right: 2rem !important;
+}
+
+.padding-left-5 {
+  padding-left: 5rem !important;
+}

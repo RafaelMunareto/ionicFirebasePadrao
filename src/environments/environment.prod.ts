@@ -1,13 +1,12 @@
 export const environment = {
   production: true,
-  firebase: {
-    apiKey: 'AIzaSyDlNbr2i44Zgur7t_D37aKT4d0bJvutGn0',
-    authDomain: 'vetsystem-a2fb1.firebaseapp.com',
-    projectId: 'vetsystem-a2fb1',
-    storageBucket: 'vetsystem-a2fb1.appspot.com',
-    messagingSenderId: '994315090492',
-    appId: '1:994315090492:web:0b7ed7f95766936a3aa139',
-    measurementId: 'G-KB5ENTF790'
-  },
+  firebase:  {
+    apiKey: "AIzaSyBwwlsvR3tx246gX6WZ1LKcA4ljuftiCxA",
+    authDomain: "quizvarejo.firebaseapp.com",
+    projectId: "quizvarejo",
+    storageBucket: "quizvarejo.appspot.com",
+    messagingSenderId: "1038112587009",
+    appId: "1:1038112587009:web:00aea9c37c6df00501af00",
+    measurementId: "G-XTZ7TW4LLQ"
+  }
 };
-

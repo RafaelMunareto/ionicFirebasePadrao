@@ -1,30 +1,31 @@
 /* eslint-disable arrow-body-style */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { find } from 'lodash';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentPlatformService {
+  isDevice = false;
+  isMobileWeb = false;
+  constructor(private platform: Platform) {
+    this.setPlatform();
+  }
 
-    isDevice: boolean = false;
-
-    constructor(
-        private platform: Platform, ) {
-          this.setPlatform();
-         }
-
-    setPlatform(): void {
-
-        const platforms: string[] = this.platform.platforms();
-        const platform: string = find(platforms, (p: string) => {
-            return p === 'capacitor';
-        });
-
-        this.isDevice = platform ? true : false;
+  setPlatform(): void {
+    const platforms: string[] = this.platform.platforms();
+    const platform: string = find(platforms, (p: string) => {
+      return p === 'capacitor';
+    });
+    if (platforms.includes('android') && platforms.includes('ios')) {
+      if (platforms.includes('capacitor')) {
+        this.isMobileWeb = false;
+      } else {
+        this.isMobileWeb = true;
+      }
     }
 
-
+    this.isDevice = platform ? true : false;
+  }
 }

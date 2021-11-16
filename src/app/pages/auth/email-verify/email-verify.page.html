@@ -1,0 +1,69 @@
+<ion-content>
+  <app-header rota="auth/login" cor="white" funcao="back"></app-header>
+  <div class="login_wrapper">
+    <div class="login_title">
+      <img src="../../assets/wizard_four.png" />
+    </div>
+
+    <div *ngIf="mode === 'verifyEmail'" class="flex-column align-items-center">
+      <div *ngIf="verificacacao === true">
+        <ion-card-header class="mt-03">
+          <ion-card-title>SUCESSO!!!</ion-card-title>
+          <ion-card-subtitle class="mt-2"
+            >Seu email foi confirmado.</ion-card-subtitle
+          >
+          <ion-card-content>
+            <img src="../../assets/title_logo_white.png" />
+          </ion-card-content>
+        </ion-card-header>
+      </div>
+    </div>
+
+    <div *ngIf="mode === 'resetPassword'">
+      <form
+        #form
+        [formGroup]="resourceForm"
+        (submit)="onSubmit()"
+        class="login_form"
+        *ngIf="liberaPassword === true"
+      >
+        <div class="login_row">
+          <h4>Alteração de senha</h4>
+        </div>
+        <div class="login_row">
+          <input
+            class="pass"
+            type="password"
+            formControlName="password"
+            placeholder="Digite a senha"
+          />
+          <app-validators-form
+            [form-control]="$any(resourceForm.get('password'))"
+          ></app-validators-form>
+        </div>
+        <div class="login_row">
+          <input
+            class="pass"
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Digite a senha"
+          />
+          <app-validators-form
+            [form-control]="$any(resourceForm.get('confirmPassword'))"
+          ></app-validators-form>
+        </div>
+        <div class="login_row">
+          <app-button
+            title="Alterar"
+            [valido]="!resourceForm.invalid"
+          ></app-button>
+        </div>
+      </form>
+    </div>
+    <br />
+    <br />
+    <span class="size120">
+      <strong class="mt-5" (click)="goToPage('login')">Login</strong>
+    </span>
+  </div>
+</ion-content>

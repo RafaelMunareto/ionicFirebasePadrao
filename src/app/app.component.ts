@@ -1,34 +1,43 @@
-import { Component } from '@angular/core';
-import { AuthService } from './core/services/auth.service';
+import { CurrentPlatformService } from 'src/app/shared/services/current-plataform.service';
+import { Router } from '@angular/router';
+import { Component, NgZone } from '@angular/core';
 
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { App, URLOpenListenerEvent } from '@capacitor/app';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-
-  pages: { url: string; direction: any; icon: string; text: string }[];
-  user: firebase.default.User;
-
-
-  constructor(private authService: AuthService) {
+  notShown: boolean;
+  mobileWeb = false;
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    private zone: NgZone,
+    private router: Router,
+    public currentPlatformService: CurrentPlatformService
+  ) {
     this.initializeApp();
+    this.notShown = true;
   }
 
   initializeApp() {
-    this.authService.authState$.subscribe((user) => {
-      this.user = user;
+    App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
+      this.zone.run(() => {
+        const slug = event.url.split('.app').pop();
+        if (slug) {
+          this.router.navigateByUrl(slug);
+        }
+      });
     });
-
-    this.pages = [
-      {
-        url: '/home',
-        icon: 'home-outline',
-        direction: 'back',
-        text: 'Home',
-      }
-    ];
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
   }
-
 }

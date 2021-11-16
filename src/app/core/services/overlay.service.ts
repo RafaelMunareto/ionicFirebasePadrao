@@ -36,8 +36,9 @@ export class OverlayService {
   async toast(options?: ToastOptions): Promise<HTMLIonToastElement> {
     const toast = await this.toastController.create({
       position: 'bottom',
-      duration: 3000,
+      duration: 3500,
       animated: true,
+      color: 'tertiary',
       cssClass: 'overlay-toast',
       message: '',
       ...options,

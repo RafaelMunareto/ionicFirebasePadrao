@@ -1,152 +1,77 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable prefer-const */
-import { formatDate } from "@angular/common";
-import { Injectable } from "@angular/core";
-import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
-import { AlertController } from "@ionic/angular";
-import { Store } from "@ngrx/store";
-import { OverlayService } from "src/app/core/services/overlay.service";
-import { Tasks } from "../model/tasks.model";
+import { Injectable } from '@angular/core';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Notification } from '../models/notification.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class Notifications {
-  alert: Tasks[] = [];
-  radio: any;
+  constructor(public localNotifications: LocalNotifications) {}
 
-  constructor(
-    public localNotifications: LocalNotifications,
-    public alertController: AlertController,
-    private overlayService: OverlayService,
-    private store: Store<any>
-  ){}
-
-  async presentAlert(task: Tasks) {
-    if (task.responsavel) {
-      const alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: `Tarefa de ${task.tipo} vence em 2 horas` ,
-        subHeader: `${task.responsavel[0] ?? ''} ${task.responsavel[1] ?? ''} ${
-          task.responsavel[2] ?? ''
-        } ${task.responsavel[3] ?? ''}`,
-        message: task.title,
-        translucent: true,
-        animated: true,
-        inputs: [
-          {
-            name: 'Adiar 1 hora',
-            type: 'radio',
-            label: 'Adiar 1 hora',
-            value: 3600000,
-            handler: () => {
-              this.radio = 3600000;
-            },
-          },
-          {
-            name: 'Adiar 2 horas',
-            type: 'radio',
-            label: 'Adiar 2 horas',
-            value: 7200000,
-            handler: () => {
-              this.radio = 3600000;
-            },
-          },
-          {
-            name: 'Adiar 1 dia',
-            type: 'radio',
-            label: 'Adiar 1 dia',
-            value: 86400000,
-            handler: () => {
-              this.radio = 86400000;
-            },
-          },
-          {
-            name: 'Adiar 2 dias',
-            type: 'radio',
-            label: 'Adiar 2 dias',
-            value: 172800000,
-            handler: () => {
-              this.radio = 172800000  ;
-            },
-          },
-          {
-            name: 'Adiar 1 semana',
-            type: 'radio',
-            label: 'Adiar 1 semana',
-            value: 86400000,
-            handler: () => {
-              this.radio = 604800000;
-            },
-          },
-        ],
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => {
-              if (this.radio) {
-                this.onHoje(task, this.radio);
-              }
-            },
-          },
-        ],
-      });
-      await alert.present();
-      await alert.onDidDismiss();
-    }
-  }
-
-  async notifications(task: Tasks) {
+  // Função para emitir uma simples notificação, utilizando o model Notification
+  async notificationSchedule(notification: Notification) {
     this.localNotifications.schedule({
-      id: Date.now(),
-      text: task.title,
-      group: task.tipo,
-      color: '#F4F4F4',
-      data: { secret: task.id },
-      icon: "https://munatasks.com/assets/icon/favicon.png",
-      smallIcon:  "res://notification-logo",
-      led: 'FA962A',
-      vibrate:true,
-      foreground: true
+      id: notification.id ?? Date.now(),
+      text: notification.text,
+      group: notification.group,
+      color: notification.color,
+      data: notification.data,
+      icon: notification.icon,
+      smallIcon: notification.smallIcon,
+      led: notification.led,
+      vibrate: notification.vibrate,
+      foreground: notification.foreground,
+      trigger: {
+        at: notification.trigger.at ?? new Date(new Date().getTime() + 1000),
+      },
+      sound: notification.sound,
     });
   }
 
-  async simpleNotif(tasks: Tasks[]) {
-    if (tasks !== undefined) {
-      for (let task of tasks) {
-        await this.presentAlert(task);
-        await this.notifications(task);
-      }
+  //Função que receber um array de notificações e as emite para o notificationSchedule
+  async multipleNotificationsSchedule(notifications: Notification[]) {
+    for (let notification of notifications) {
+      await this.notificationSchedule(notification);
     }
   }
 
-  async onHoje(task: Tasks, time: number) {
-
-    if(!time){
-      time = 0;
-    }
-
-    const date = formatDate(
-      new Date().getTime() + time,
-      "yyyy-MM-dd'T'HH:mm",
-      'en'
-    );
-    const taskToUpdate = {
-      ...task,
-      data: date,
-    };
-    setTimeout(() => {
-    }, 400);
-    await this.overlayService.toast({
-      message: `Tarefa ${task.title} ${
-        taskToUpdate.done ? 'Atualizada' : 'Atualizada'
-      }!`,
-    });
+  //Função para atualizar uma notificação já agendada
+  async updateNotificationSchedule(notification: Notification) {
+    return this.localNotifications.update(notification);
   }
 
+  //Função para atualizar várias notificações
+  async updateMutipleNotificationsSchedule(notifications: Notification[]) {
+    for (let notification of notifications) {
+      await this.updateNotificationSchedule(notification);
+    }
+  }
 
-  public notificationsAcionar(alert: Tasks[]) {
-    this.simpleNotif(alert);
+  //Função retorna uma notificação específica.
+  async getNotification(id: any) {
+    return this.localNotifications.get(id);
+  }
+
+  //Função para retornar todas as notificações
+  async getAllNotifications() {
+    return this.localNotifications.getAll();
+  }
+
+  //Função para cancelamento de todas as notificações.
+  async cancelNotification(notification: Notification) {
+    return this.localNotifications
+      .cancel(notification.id)
+      .then((res) => true)
+      .catch((err) => false);
+  }
+
+  //Função para cancelamento de todos as notificações
+  async cancelAllNotifications() {
+    return this.localNotifications
+      .cancelAll()
+      .then((res) => true)
+      .catch((err) => false);
   }
 }
