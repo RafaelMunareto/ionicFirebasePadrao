@@ -6,6 +6,8 @@ import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mustMatch } from 'src/app/shared/validators/validate-password.validator';
+import { ErrorPtBr } from 'src/app/shared/functions/errorPtBr';
+import { OverlayService } from 'src/app/core/services/overlay.service';
 
 @Component({
   selector: 'app-email-verify',
@@ -13,7 +15,7 @@ import { mustMatch } from 'src/app/shared/validators/validate-password.validator
   styleUrls: ['./email-verify.page.scss'],
 })
 export class EmailVerifyPage implements OnInit {
-  verificacacao;
+  verificacacao: any = false;
   resourceForm: FormGroup;
   liberaPassword;
   code;
@@ -23,7 +25,9 @@ export class EmailVerifyPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private ptBr: ErrorPtBr,
+    private overlayService: OverlayService
   ) {}
 
   ngOnInit() {
@@ -33,7 +37,7 @@ export class EmailVerifyPage implements OnInit {
     if (this.mode === 'verifyEmail') {
       this.authService
         .emailVerify(this.code)
-        .then((res) => (this.verificacacao = res));
+        .then((res) => this.verificacacao = res);
     } else if (this.mode === 'resetPassword') {
       this.authService
         .checkResetPassword(this.code)
@@ -62,7 +66,17 @@ export class EmailVerifyPage implements OnInit {
 
   onSubmit() {
     if (this.liberaPassword) {
-      this.authService.validNewPassword(this.code, this.password);
+      try{
+        this.authService.validNewPassword(this.code, this.password);
+        setTimeout(() => {
+          this.navCtrl.navigateForward('auth');
+        },3000)
+
+      }catch(e){
+        this.overlayService.toast({
+          message: e
+        })
+      }
     }
   }
 }

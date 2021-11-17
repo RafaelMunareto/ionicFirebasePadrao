@@ -73,11 +73,13 @@ export class LoginPage implements OnInit {
   }
 
   onSubmit() {
-    this.authService
-      .signInWithEmailLink(this.email, this.password)
-      .finally(() => {
-        this.set('pass', { email: this.email, password: this.password });
-      });
+    if(this.resourceForm.valid)
+      this.authService
+        .signInWithEmailLink(this.email, this.password)
+        .finally(() => {
+          this.set('pass', { email: this.email, password: this.password });
+        });
+    
   }
 
   async init() {
@@ -141,8 +143,4 @@ export class LoginPage implements OnInit {
     this._storage?.set(key, value);
   }
 
-  public rotaAppAction() {
-    this.document.location.href =
-      'https://play.google.com/store/apps/details?id=io.munatasks.starter';
-  }
 }

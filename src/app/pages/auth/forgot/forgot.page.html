@@ -1,40 +1,60 @@
 <ion-content>
-  <app-header
-    title="Esqueceu a senha"
-    cor="white"
-    funcao="back"
-    rota="auth/login"
-  >
-  </app-header>
-
-  <div class="login_wrapper">
-    <div class="login_title">
-      <img src="../../../assets/wizard_four.png" />
-    </div>
-    <form
-      #form
-      [formGroup]="resourceForm"
-      (submit)="onSubmit()"
-      class="login_form"
-    >
-      <div class="login_row">
-        <input
-          class="mail"
-          formControlName="email"
-          type="mail"
-          placeholder="Email"
-        />
-        <app-validators-form
-          [form-control]="$any(resourceForm.get('email'))"
-        ></app-validators-form>
-      </div>
-      <div class="login_row">
-        <app-button
-          title="Enviar senha"
-          [valido]="!resourceForm.invalid"
-        ></app-button>
-      </div>
-    </form>
-    <br />
-  </div>
+  <ion-toolbar color='transparent' class='height-min'>
+    <ion-row >
+      <ion-icon name='arrow-back-outline' color='light' size='large' class='ion-padding' routerLink='/auth' routerDirection='back'></ion-icon>
+      <ion-title class='size120' color='light'>Esqueceu a senha?</ion-title>
+    </ion-row>
+  </ion-toolbar>
+  
+ 
+  <ion-row class='border-radius-top ion-justify-content-center'>
+    <ion-col size-xl='12' size-lg='10' size-md='8' size-sm='12' size-xs='12'>
+  
+      <ion-grid>
+        <ion-row class='ion-justify-content-center'>
+          <ion-col size-xl='1' size-lg='3' size-md='5' size-sm='3' size-xs='6'>
+            <ion-img src='assets/icon/icon_forget.png'></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <!-- formulario -->
+      <ion-grid>
+        <ion-row class='ion-justify-content-center'>
+          
+          <ion-col size-xl='4' size-lg='8' size-md='10' size-sm='12' size-xs='12'>
+            <form
+              #form
+              [formGroup]="resourceForm"
+              class="login_form"
+              (submit)="onSubmit()"
+            >
+              <ion-item lines="none">
+                <ion-input
+                  formControlName="email"
+                  class='ion-padding input_text'
+                  type='email'
+                  placeholder="Email"
+                >
+                  <ion-icon name="mail" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>            
+                </ion-input>         
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('email'))"
+                ></app-validators-form>  
+              </div>
+    
+              <ion-button title="Login" type='submit' shape='round' expand='full' class='ion-padding round' [disabled]="resourceForm.invalid">Enviar</ion-button>
+            </form>
+  
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+    </ion-col>
+  </ion-row>
+  
 </ion-content>

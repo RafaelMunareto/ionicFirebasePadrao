@@ -114,7 +114,7 @@ export class AuthService {
   async signUpWithEmailLink(email, password, name) {
     const loading = await this.overlayService.loading();
     var actionCodeSettings = {
-      url: 'https://lovebank-fb376.web.app',
+      url: 'https://quizvarejo.web.app',
       handleCodeInApp: true,
     };
     try {
@@ -124,7 +124,7 @@ export class AuthService {
           credentials.user
             .updateProfile({
               displayName: name,
-              photoURL: 'https://lovebank-fb376.web.app/id.png',
+              photoURL: 'https://firebasestorage.googleapis.com/v0/b/quizvarejo.appspot.com/o/perfil%2Fdefault.png?alt=media&token=bbe7253c-c146-4dc3-9c72-2aa1c6462e6a',
             })
             .then(() => credentials)
         )
@@ -139,7 +139,7 @@ export class AuthService {
                 this.bd.collection(`usuarios`).add({
                   name: name,
                   email: email,
-                  photoURL: 'https://lovebank-fb376.web.app/id.png',
+                  photoURL: 'https://firebasestorage.googleapis.com/v0/b/quizvarejo.appspot.com/o/perfil%2Fdefault.png?alt=media&token=bbe7253c-c146-4dc3-9c72-2aa1c6462e6a',
                   verificado: false,
                 });
               });
@@ -170,7 +170,7 @@ export class AuthService {
         message: 'Sucesso!!! Faça seu login.',
       });
       setTimeout(() => {
-        this.navCtrl.navigateBack('auth/login');
+        this.navCtrl.navigateBack('auth');
       }, 1500);
       return true;
     } catch (e) {

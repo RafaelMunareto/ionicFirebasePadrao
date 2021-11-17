@@ -1,4 +1,128 @@
 <ion-content>
+  <ion-toolbar color='transparent' class='height-min'>
+    <ion-row >
+      <ion-icon name='arrow-back-outline' color='light' size='large' class='ion-padding' routerLink='/auth' routerDirection='back'></ion-icon>
+      <ion-title class='size120' color='light'>Registre-se</ion-title>
+    </ion-row>
+  </ion-toolbar>
+  
+ 
+  <ion-row class='border-radius-top ion-justify-content-center mb-4'>
+    <ion-col  size-xl='12' size-lg='10' size-md='8' size-sm='12' size-xs='12'>
+        <ion-grid class='ion-padding'>
+          <ion-row>
+            <ion-text color='primary' class='bold size120'>Junte-se a nós!</ion-text>
+          </ion-row>
+          <ion-row>
+            <ion-text color='medium' class='bold size80'>Olá, crie uma conta.</ion-text>
+          </ion-row>
+        </ion-grid>
+  
+      <ion-grid>
+        <ion-row class='ion-justify-content-center'>
+          <ion-col size-xl='1' size-lg='3' size-md='5' size-sm='3' size-xs='6'>
+            <ion-img src='assets/icon/icone_cadastro.png'></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <!-- formulario -->
+      <ion-grid>
+        <ion-row class='ion-justify-content-center'>
+          
+          <ion-col size-xl='4' size-lg='8' size-md='10' size-sm='12' size-xs='12'>
+            <form
+              #form
+              [formGroup]="resourceForm"
+              class="login_form"
+              (submit)="onSubmit()"
+            >
+
+            <ion-item lines="none">
+                <ion-input
+                  formControlName="name"
+                  class='ion-padding input_text'
+                  type='text'
+                  placeholder="Nome"
+                >
+                  <ion-icon name="person" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>            
+                </ion-input>         
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('name'))"
+                ></app-validators-form>  
+              </div>
+              
+              <ion-item lines="none">
+                <ion-input
+                  formControlName="email"
+                  class='ion-padding input_text'
+                  type='email'
+                  placeholder="Email"
+                >
+                  <ion-icon name="mail" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>            
+                </ion-input>         
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('email'))"
+                ></app-validators-form>  
+              </div>
+    
+              <ion-item lines="none">
+                <ion-input value="custom"
+                  formControlName="password"
+                  class='ion-padding input_text'
+                  type="password"
+                  placeholder="Senha"
+                >
+                  <ion-icon name="lock-closed-outline" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>
+                </ion-input>
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('password'))"
+                ></app-validators-form>
+              </div>
+
+              <ion-item lines="none">
+                <ion-input value="custom"
+                  formControlName="confirmPassword"
+                  class='ion-padding input_text'
+                  type="password"
+                  placeholder="Confirma Senha"
+                >
+                  <ion-icon name="lock-closed-outline" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>
+                </ion-input>
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('confirmPassword'))"
+                ></app-validators-form>
+              </div>
+              
+              <ion-button title="Login" type='submit' shape='round' expand='full' class='ion-padding round' [disabled]="resourceForm.invalid">Registrar</ion-button>
+  
+            </form>
+  
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+    </ion-col>
+  </ion-row>
+
+  
+</ion-content>
+
+<!-- 
+<ion-content>
   <app-header rota="auth/login" cor="white" funcao="back"></app-header>
   <div class="login_wrapper">
     <div class="login_title">
@@ -65,7 +189,7 @@
         ></app-button>
       </div>
     </form>
-    <!-- <p>Ou registre com </p>
+     <p>Ou registre com </p>
         <div class="social_bay">
             <ul>
                 <li class="fb_icon">
@@ -75,7 +199,7 @@
 
                 </li>
             </ul>
-        </div> -->
+        </div> 
     <p>Já possui conta? <strong (click)="goToPage('login')">Login</strong></p>
   </div>
-</ion-content>
+</ion-content> -->

@@ -1,58 +1,106 @@
 <ion-content>
-  <div class="login_wrapper">
-    <img src="../../../assets/title_logo.png" />
-    <form
-      #form
-      [formGroup]="resourceForm"
-      class="login_form"
-      (submit)="onSubmit()"
-    >
-      <div class="login_row">
-        <input
-          class="user"
-          formControlName="email"
-          type="text"
-          placeholder="Email"
-        />
-        <app-validators-form
-          [form-control]="$any(resourceForm.get('email'))"
-        ></app-validators-form>
-      </div>
-      <div class="login_row">
-        <input
-          class="pass"
-          formControlName="password"
-          type="password"
-          placeholder="Senha"
-        />
-        <app-validators-form
-          [form-control]="$any(resourceForm.get('password'))"
-        ></app-validators-form>
-      </div>
-      <div class="login_row">
-        <app-button title="Login" [valido]="!resourceForm.invalid"></app-button>
-      </div>
-    </form>
-    <div class="social_bay" *ngIf="this.currentPlatformService.isDevice">
-      <ul>
-        <li class="digital_icon" (click)="checkCredential()"></li>
-        <!-- <li class="google_icon"></li> -->
-      </ul>
-    </div>
-    <p><strong (click)="goToPage('forgot')">Esqueceu a senha?</strong></p>
-    <p>
-      Não possui uma conta ?
-      <strong (click)="goToPage('signup')">Cadastre-se</strong>
-    </p>
-  </div>
-</ion-content>
-<ion-footer
-  *ngIf="this.currentPlatformService.isMobileWeb"
-  class="ion-no-border"
-  color="transparent"
-  (click)="rotaAppAction()"
->
-  <ion-toolbar color="transparent" style="display: flex">
-    <ion-title color="tertiary">Utilize o app</ion-title>
+  <ion-toolbar color='transparent' class='height-min'>
+    <ion-title class='size120' color='light'>Login</ion-title>
   </ion-toolbar>
-</ion-footer>
+ 
+  <ion-row class='border-radius-top ion-justify-content-center'>
+    <ion-col size-xl='12' size-lg='10' size-md='8' size-sm='12' size-xs='12'>
+      <ion-grid class='ion-padding'>
+        <ion-row>
+          <ion-text color='primary' class='bold size120'>Bem vindo ao Quebrando a Banca!</ion-text>
+        </ion-row>
+        <ion-row>
+          <ion-text color='medium' class='bold size80'>O quiz dos bancários.</ion-text>
+        </ion-row>
+      </ion-grid>
+  
+      <ion-grid>
+        <ion-row class='ion-justify-content-center'>
+          <ion-col size-xl='1' size-lg='3' size-md='5' size-sm='3' size-xs='6'>
+            <ion-img src='assets/icon/icone_login.png'></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <!-- formulario -->
+      <ion-grid>
+        <ion-row class='ion-justify-content-center'>
+          
+          <ion-col size-xl='4' size-lg='8' size-md='10' size-sm='12' size-xs='12'>
+            <form
+              #form
+              [formGroup]="resourceForm"
+              class="login_form"
+              (submit)="onSubmit()"
+            >
+              <ion-item lines="none">
+                <ion-input
+                  formControlName="email"
+                  class='ion-padding input_text'
+                  type='email'
+                  placeholder="Email"
+                >
+                  <ion-icon name="mail" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>            
+                </ion-input>         
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('email'))"
+                ></app-validators-form>  
+              </div>
+    
+              <ion-item lines="none">
+                <ion-input value="custom"
+                  formControlName="password"
+                  class='ion-padding input_text'
+                  type="password"
+                  placeholder="Senha"
+                >
+                  <ion-icon name="lock-closed-outline" color="primary" class="ion-margin-end ion-margin-start" item-right></ion-icon>
+                </ion-input>
+              </ion-item>
+              <div class='min-height-105 justify-content-end'>
+                <app-validators-form
+                class='padding-right-2'
+                [form-control]="$any(resourceForm.get('password'))"
+                ></app-validators-form>
+              </div>
+              
+              <ion-row slot="end" class='size80 grey ion-justify-content-end' lines='none' [routerLink]="['/auth/forget']" [routerDirection]='forward'>
+                <ion-col size=12 class='textRight padding-right-2'>
+                  <ion-text class='w100 textRight'>Esqueceu a senha?</ion-text>
+                </ion-col>
+              </ion-row>
+              <ion-button title="Login" type='submit' shape='round' expand='full' class='ion-padding round' [disabled]="resourceForm.invalid">LOGAR</ion-button>
+  
+            </form>
+
+                  
+            <!-- imagem digital  -->
+            <ion-grid class='ion-justify-content-center ion-padding' *ngIf='this.currentPlatformService.isDevice'>
+              <ion-row lines='none' class='ion-justify-content-center'>
+                <ion-col (click)="checkCredential()" size-xl='3' size-lg='2' size-md='2' size-sm='2' size-xs='3'>
+                  <ion-img src='assets/icon/icon_biometrico.png'></ion-img>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        
+            <!-- parte de baixo -->
+            <ion-list lines='none'>
+              <ion-item [routerLink]="['/auth/signup']" [routerDirection]='forward'>
+                <ion-label class='ion-text-center size90' color='cadastroLabel'>
+                    Você não possui cadastro? <strong class='cadastroLabelPrimary'>Cadastre-se</strong>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+  
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+    </ion-col>
+  </ion-row>
+  
+</ion-content>

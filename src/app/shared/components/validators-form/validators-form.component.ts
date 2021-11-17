@@ -5,7 +5,15 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-validators-form',
   template: `
-     <div class="message error" *ngIf='errorMessage'> {{ errorMessage }}</div>
+  <ion-note
+  slot="end"
+  style="font-size:12px;"
+  color="danger"
+  severity="error"
+  *ngIf="errorMessage"
+  >
+    {{ errorMessage }}
+  </ion-note>
   `,
 })
 export class ValidatorsFormComponent implements OnInit {
@@ -16,6 +24,8 @@ export class ValidatorsFormComponent implements OnInit {
   constructor() {
     this.formControl = new FormControl();
   }
+
+  // <div class="message error" *ngIf='errorMessage'> {{ errorMessage }}</div>
 
   ngOnInit() {}
 

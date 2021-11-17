@@ -8,7 +8,7 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: 'login',
+        path: '',
         loadChildren: () =>
           import('./login/login.module').then((m) => m.LoginPageModule),
       },
@@ -18,7 +18,7 @@ const routes: Routes = [
           import('./signup/signup.module').then((m) => m.SignupPageModule),
       },
       {
-        path: 'forgot',
+        path: 'forget',
         loadChildren: () =>
           import('./forgot/forgot.module').then((m) => m.ForgotPageModule),
       },
